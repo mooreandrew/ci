@@ -30,14 +30,13 @@ $(function(){
       change: function (e, ui){
         update_item();
       },
-
-
     });
-
-
     $( "ul, li" ).disableSelection();
   });
 });//]]>
+
+
+
 
 
 function getOffset( el ) {
@@ -90,20 +89,29 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  overflow:auto;
+
 }
 
 .sortable > li {
-  list-style:none;
+  list-style: none;
   background: #DDDDDD;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
+  float: left;
+  width: 170px;
 }
 
 .item {
   padding:20px;
+}
+
+.ui-sortable-helper:hover {
+  cursor:pointer;
+
 }
 
 .column {
@@ -112,6 +120,25 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   margin-right: 60px;
 
 }
+
+.column-max {
+  width: 100%;
+  float: left;
+  margin-right: 60px;
+
+}
+
+.sortable_orphaned {
+  background: #EEEEEE;
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  overflow:auto;
+}
+
+
 
 </style>
 
@@ -151,7 +178,35 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
         <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
       </ul>
     </div>
+
 </div>
+<div class="container">
+
+
+    <div class="column-max">
+      <h4>Available Tasks</h4>
+
+    <ul class="list-unstyled sortable sortable_orphaned">
+      <li class="ui-state-default" ><div class="item">Item #1</div></li>
+      <li class="ui-state-default" ><div class="item">Item #2</div></li>
+      <li class="ui-state-default" ><div class="item">Item #3</div></li>
+      <li class="ui-state-default" ><div class="item">Item #4</div></li>
+      <li class="ui-state-default" ><div class="item">Item #5</div></li>
+      <li class="ui-state-default" ><div class="item">Item #6</div></li>
+      <li class="ui-state-default" ><div class="item">Item #7</div></li>
+      <li class="ui-state-default" ><div class="item">Item #8</div></li>
+      <li class="ui-state-default" ><div class="item">Item #9</div></li>
+      <li class="ui-state-default" ><div class="item">Item #10</div></li>
+      <li class="ui-state-default" ><div class="item">Item #11</div></li>
+      <li class="ui-state-default" ><div class="item">Item #12</div></li>
+      <li class="ui-state-default" ><div class="item">Item #13</div></li>
+      <li class="ui-state-default" ><div class="item">Item #14</div></li>
+    </ul>
+
+  </div>
+
+</div>
+
 
 
 
