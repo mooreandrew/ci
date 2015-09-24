@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>jQuery UI: Draggable - jsFiddle demo</title>
+
+
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.js'></script>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+  <script type="text/javascript" src="jquery.line.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/overcast/jquery-ui.css">
+
+
+
+<script type='text/javascript'>//<![CDATA[
+$(function(){
+  $(function() {
+    $( ".sortable" ).sortable({
+      revert: true,
+      connectWith: ".sortable",
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+      },
+      change: function (e, ui){
+        update_item();
+      },
+
+
+    });
+
+
+    $( "ul, li" ).disableSelection();
+  });
+});//]]>
+
+
+function getOffset( el ) {
+    var rect = el.getBoundingClientRect();
+    return {
+        left: rect.left + window.pageXOffset,
+        top: rect.top + window.pageYOffset,
+        width: rect.width || el.offsetWidth,
+        height: rect.height || el.offsetHeight
+    };
+}
+
+function connect(div1, div2, color, thickness) { // draw a line connecting elements
+    var off1 = getOffset(div1);
+    var off2 = getOffset(div2);
+    // bottom right
+    var x1 = off1.left + off1.width;
+    var y1 = off1.top + (off1.height / 2);
+
+    // top right
+    var x2 = off2.left;
+    var y2 = off2.top + (off2.height / 2);
+
+    // distance
+    var length = Math.sqrt(((x2-x1) * (x2-x1)) + ((y2-y1) * (y2-y1)));
+    // center
+    var cx = ((x1 + x2) / 2) - (length / 2);
+    var cy = ((y1 + y2) / 2) - (thickness / 2);
+    // angle
+    var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
+    // make hr
+
+    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line'});
+
+    //var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
+    //
+    // alert(htmlLine);
+    //document.body.innerHTML += htmlLine;
+}
+
+</script>
+
+
+<style>
+
+.sortable {
+  background: #EEEEEE;
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.sortable > li {
+  list-style:none;
+  background: #DDDDDD;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.item {
+  padding:20px;
+}
+
+.column {
+  width: 200px;
+  float: left;
+  margin-right: 60px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="column">
+      <center><h4>Step 1</h4></center>
+      <ul id="id1" class="list-unstyled sortable">
+        <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
+      </ul>
+      <center><h4>Step 1</h4></center>
+      <ul id="id2" class="list-unstyled sortable">
+        <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
+      </ul>
+      <center><h4>Step 1</h4></center>
+      <ul id="id3" class="list-unstyled sortable">
+        <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
+      </ul>
+    </div>
+    <div class="column">
+      <center><h4>Step 2</h4></center>
+      <ul id="id4" class="list-unstyled sortable">
+        <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
+        <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
+        <li class="ui-state-default"><div class="item">Push Changes</div></li>
+      </ul>
+    </div>
+    <div class="column">
+      <center><h4>Step 3</h4></center>
+      <ul id="id5" class="list-unstyled sortable">
+        <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
+      </ul>
+    </div>
+</div>
+
+
+
+<script>
+function update_item(color) {
+  color = typeof color !== 'undefined' ? color : '#AAAAAA';
+  $( ".line" ).remove();
+  connect(document.getElementById('id1'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id2'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id3'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id4'), document.getElementById('id5'), color, 3);
+}
+update_item();
+
+</script>
+
+</body>
+
+</html>
