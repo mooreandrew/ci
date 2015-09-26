@@ -2,7 +2,7 @@ class CreateStages < ActiveRecord::Migration
   def up
     create_table :stages do |t|
       t.string :title
-      t.integer :order
+      t.integer :orderkey
       t.integer :flow_id
       t.timestamps
     end

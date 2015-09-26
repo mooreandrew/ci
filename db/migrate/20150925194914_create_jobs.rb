@@ -3,7 +3,7 @@ class CreateJobs < ActiveRecord::Migration
     create_table :jobs do |t|
       t.string :title
       t.integer :sequence_id
-      t.integer :order
+      t.integer :orderkey
       t.timestamps
     end
   end

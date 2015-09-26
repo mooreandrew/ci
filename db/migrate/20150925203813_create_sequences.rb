@@ -2,7 +2,7 @@ class CreateSequences < ActiveRecord::Migration
   def up
     create_table :sequences do |t|
       t.string :title
-      t.integer :order
+      t.integer :orderkey
       t.integer :stage_id
       t.timestamps
     end

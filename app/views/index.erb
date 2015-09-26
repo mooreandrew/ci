@@ -19,57 +19,7 @@
 
 
 <script type='text/javascript'>//<![CDATA[
-$(function(){
-  $(function() {
-    $( ".sortable_job" ).sortable({
-      revert: true,
-      connectWith: ".sortable_job",
-      placeholder: "sortable_job_moving",
 
-
-
-
-      start: function(e, ui){
-        ui.placeholder.height(ui.helper[0].scrollHeight);
-        update_item('#DDDDDD');
-
-      },
-      change: function (e, ui){
-        update_item('#DDDDDD');
-      },
-      stop: function (e, ui){
-        update_item();
-      },
-
-
-
-    });
-    $( "ul, li" ).disableSelection();
-  });
-
-  $(function() {
-    $( ".sortable_sequence" ).sortable({
-      revert: true,
-      placeholder: "sortable_sequence_moving",
-
-      start: function(e, ui){
-        ui.placeholder.height(ui.helper[0].scrollHeight);
-        update_item('#DDDDDD');
-      },
-      change: function (e, ui){
-        update_item('#DDDDDD');
-      },
-      stop: function (e, ui){
-        update_item();
-      },
-    });
-    $( "ul, li" ).disableSelection();
-  });
-
-
-
-
-});//]]>
 
 
 
@@ -106,11 +56,6 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
     // make hr
 
     $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line', style:'dotted'});
-
-    //var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
-    //
-    // alert(htmlLine);
-    //document.body.innerHTML += htmlLine;
 }
 
 </script>
@@ -186,8 +131,9 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 .sortable_orphaned > li {
   float: left;
-  width: 160px;
   margin: 5px;
+  width: 180px;
+
 }
 
 
@@ -290,23 +236,9 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 
 <div class="container">
-  <div class="column-max">
+  <div class="column-max" id="">
     <h4>Available Tasks</h4>
-    <ul class="list-unstyled sortable_job sortable_orphaned">
-      <li class="ui-state-default" ><div class="item">Item #1</div></li>
-      <li class="ui-state-default" ><div class="item">Item #2</div></li>
-      <li class="ui-state-default" ><div class="item">Item #3</div></li>
-      <li class="ui-state-default" ><div class="item">Item #4</div></li>
-      <li class="ui-state-default" ><div class="item">Item #5</div></li>
-      <li class="ui-state-default" ><div class="item">Item #6</div></li>
-      <li class="ui-state-default" ><div class="item">Item #7</div></li>
-      <li class="ui-state-default" ><div class="item">Item #8</div></li>
-      <li class="ui-state-default" ><div class="item">Item #9</div></li>
-      <li class="ui-state-default" ><div class="item">Item #10</div></li>
-      <li class="ui-state-default" ><div class="item">Item #11</div></li>
-      <li class="ui-state-default" ><div class="item">Item #12</div></li>
-      <li class="ui-state-default" ><div class="item">Item #13</div></li>
-      <li class="ui-state-default" ><div class="item">Item #14</div></li>
+    <ul class="list-unstyled sortable_job sortable_orphaned" id="orphaned">
     </ul>
   </div>
 </div>
@@ -317,7 +249,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 <script>
 
 
-function update_item(color) {
+function update_links(color) {
   color = typeof color !== 'undefined' ? color : '#AAAAAA';
 
   $( ".line" ).remove();
@@ -338,18 +270,17 @@ function update_item(color) {
 
 
 window.onresize = function() {
-  update_item();
+  update_links();
 
 };
 
 
-data = {"flows":[{"id":1,"title":"Example #1","order":0,"created_at":"2015-09-26T10:51:43.518Z","updated_at":"2015-09-26T10:51:43.518Z"},{"id":2,"title":"Orphaned","order":1,"created_at":"2015-09-26T10:51:43.526Z","updated_at":"2015-09-26T10:51:43.526Z"}],"stages":[{"id":1,"title":"Example #1","order":0,"flow_id":1,"created_at":"2015-09-26T10:51:43.534Z","updated_at":"2015-09-26T10:51:43.534Z"},{"id":2,"title":"Example #1","order":1,"flow_id":1,"created_at":"2015-09-26T10:51:43.540Z","updated_at":"2015-09-26T10:51:43.540Z"},{"id":3,"title":"Example #1","order":2,"flow_id":1,"created_at":"2015-09-26T10:51:43.545Z","updated_at":"2015-09-26T10:51:43.545Z"}],"sequences":[{"id":1,"title":"Step 1a","order":0,"stage_id":1,"created_at":"2015-09-26T10:51:43.554Z","updated_at":"2015-09-26T10:51:43.554Z"},{"id":2,"title":"Step 1b","order":1,"stage_id":1,"created_at":"2015-09-26T10:51:43.560Z","updated_at":"2015-09-26T10:51:43.560Z"},{"id":3,"title":"Step 1c","order":2,"stage_id":1,"created_at":"2015-09-26T10:51:43.564Z","updated_at":"2015-09-26T10:51:43.564Z"},{"id":4,"title":"Step 2","order":0,"stage_id":2,"created_at":"2015-09-26T10:51:43.569Z","updated_at":"2015-09-26T10:51:43.569Z"},{"id":5,"title":"Step 3","order":0,"stage_id":3,"created_at":"2015-09-26T10:51:43.574Z","updated_at":"2015-09-26T10:51:43.574Z"}],"jobs":[{"id":1,"title":"Unit Test #1","sequence_id":1,"order":0,"created_at":"2015-09-26T10:51:43.586Z","updated_at":"2015-09-26T10:51:43.586Z"},{"id":2,"title":"Unit Test #2","sequence_id":2,"order":0,"created_at":"2015-09-26T10:51:43.592Z","updated_at":"2015-09-26T10:51:43.592Z"},{"id":3,"title":"Unit Test #3","sequence_id":3,"order":0,"created_at":"2015-09-26T10:51:43.596Z","updated_at":"2015-09-26T10:51:43.596Z"},{"id":4,"title":"Build Artifact","sequence_id":4,"order":0,"created_at":"2015-09-26T10:51:43.601Z","updated_at":"2015-09-26T10:51:43.601Z"},{"id":5,"title":"Deploy Artifact","sequence_id":4,"order":1,"created_at":"2015-09-26T10:51:43.606Z","updated_at":"2015-09-26T10:51:43.606Z"},{"id":6,"title":"Push Changes","sequence_id":4,"order":2,"created_at":"2015-09-26T10:51:43.610Z","updated_at":"2015-09-26T10:51:43.610Z"},{"id":7,"title":"Run Acceptance Tests","sequence_id":5,"order":0,"created_at":"2015-09-26T10:51:43.614Z","updated_at":"2015-09-26T10:51:43.614Z"},{"id":8,"title":"Orphaned Job #1","sequence_id":0,"order":0,"created_at":"2015-09-26T10:51:43.620Z","updated_at":"2015-09-26T10:51:43.620Z"},{"id":9,"title":"Orphaned Job #2","sequence_id":0,"order":1,"created_at":"2015-09-26T10:51:43.625Z","updated_at":"2015-09-26T10:51:43.625Z"},{"id":10,"title":"Orphaned Job #3","sequence_id":0,"order":2,"created_at":"2015-09-26T10:51:43.629Z","updated_at":"2015-09-26T10:51:43.629Z"},{"id":11,"title":"Orphaned Job #4","sequence_id":0,"order":3,"created_at":"2015-09-26T10:51:43.633Z","updated_at":"2015-09-26T10:51:43.633Z"},{"id":12,"title":"Orphaned Job #5","sequence_id":0,"order":4,"created_at":"2015-09-26T10:51:43.638Z","updated_at":"2015-09-26T10:51:43.638Z"},{"id":13,"title":"Orphaned Job #6","sequence_id":0,"order":5,"created_at":"2015-09-26T10:51:43.643Z","updated_at":"2015-09-26T10:51:43.643Z"},{"id":14,"title":"Orphaned Job #6","sequence_id":0,"order":6,"created_at":"2015-09-26T10:51:43.647Z","updated_at":"2015-09-26T10:51:43.647Z"},{"id":15,"title":"Orphaned Job #7","sequence_id":0,"order":7,"created_at":"2015-09-26T10:51:43.651Z","updated_at":"2015-09-26T10:51:43.651Z"},{"id":16,"title":"Orphaned Job #8","sequence_id":0,"order":8,"created_at":"2015-09-26T10:51:43.656Z","updated_at":"2015-09-26T10:51:43.656Z"}]};
-console.log(data);
+data = {};
 
 
 stages_link = {};
 
-function update_workflows() {
+function init_workflows() {
 
   stages_link = {};
 
@@ -357,41 +288,139 @@ function update_workflows() {
     if( $('#flow' + data.flows[flow].id).length ) {
       console.log('check position using .index();');
     } else {
-      $( "#flows" ).append( '<li class="flow" id="flow' + data.flows[flow].id + '"></li>' );
+      $( "#flows" ).append( '<li class="flow flows" id="flow' + data.flows[flow].id + '"></li>' );
       console.log('does not exists');
     }
-
     stages_link[data.flows[flow].id] = {};
-
   }
 
   stages = {};
   for(var stage in data.stages) {
-    $( "#flow" + data.stages[stage].flow_id ).append( '<ul class="list-unstyled sortable_sequence column" id="stage' + data.stages[stage].id + '"></ul>' );
+    $( "#flow" + data.stages[stage].flow_id ).append( '<ul class="list-unstyled sortable_sequence column stages" id="stage' + data.stages[stage].id + '"></ul>' );
     stages_link[data.stages[stage].flow_id][data.stages[stage].id] = [];
     stages[data.stages[stage].id] = data.stages[stage].flow_id;
   }
 
   for(var sequence in data.sequences) {
-    $( "#stage" + data.sequences[sequence].stage_id ).append( '<li class="ui-state-default sequence"><center><h4>' + data.sequences[sequence].title + '</h4></center><ul id="sequence' + data.sequences[sequence].id + '" class="list-unstyled sortable_job"></ul></li>' );
+    $( "#stage" + data.sequences[sequence].stage_id ).append( '<li class="ui-state-default sequence"><center><h4>' + data.sequences[sequence].title + '</h4></center><ul id="sequence' + data.sequences[sequence].id + '" class="list-unstyled sortable_job sequences"></ul></li>' );
     stages_link[stages[data.sequences[sequence].stage_id]][data.sequences[sequence].stage_id].push(data.sequences[sequence].id);
-
   }
 
   for(var job in data.jobs) {
-    $( "#sequence" + data.jobs[job].sequence_id ).append( '<li class="ui-state-default" id="job' + data.jobs[job].id + '"><div class="item">' + data.jobs[job].title + '</div></li>' );
+    if (data.jobs[job].sequence_id != 0) {
+      $( "#sequence" + data.jobs[job].sequence_id ).append( '<li class="ui-state-default jobs" id="job' + data.jobs[job].id + '"><div class="item">' + data.jobs[job].title + '</div></li>' );
+    } else {
+      $( "#orphaned" ).append( '<li class="ui-state-default jobs" id="job' + data.jobs[job].id + '"><div class="item">' + data.jobs[job].title + '</div></li>' );
+    }
   }
 
   $( ".flow" ).scroll(function() {
-    update_item();
+    update_links();
   });
+  update_links();
+
 }
 
-update_workflows();
-update_item();
 
-console.log();
-console.log('all ok');
+function update_workflows() {
+  update_links();
+
+  data_ret = {};
+
+  data_ret['jobs'] = [];
+  $('.jobs').each(function(i, obj) {
+    data_ret['jobs'].push({'id': obj.id.replace('job', ''), 'sequence_id': $('#' +obj.id).parent().closest("ul").attr("id").replace('sequence', '').replace('orphaned', '0'), 'orderkey': $('#' + obj.id).index()});
+    //console.log(obj.id + ' --- ' + $('#' +obj.id).parent().closest("ul").attr("id") + ' -- ' + $('#' + obj.id).index());
+  });
+
+  data_ret['sequences'] = [];
+  $('.sequences').each(function(i, obj) {
+    data_ret['sequences'].push({'id': obj.id.replace('sequence', ''), 'stage_id': $('#' +obj.id).parent().closest("ul").attr("id").replace('stage', ''), 'orderkey': $('#' + obj.id).parent().closest("li").index()});
+    //console.log(obj.id + ' --- ' + $('#' +obj.id).parent().closest("ul").attr("id") + ' -- ' + $('#' + obj.id).parent().closest("li").index());
+  });
+
+  data_ret['stages'] = [];
+  $('.stages').each(function(i, obj) {
+    data_ret['stages'].push({'id': obj.id.replace('stage', ''), 'flow_id': $('#' +obj.id).parent().closest("li").attr("id").replace('flow', ''), 'orderkey': $('#' + obj.id).index()});
+    //console.log(obj.id + ' --- ' + $('#' +obj.id).parent().closest("li").attr("id") + ' -- ' + $('#' + obj.id).index());
+  });
+
+
+  data_ret['flows'] = [];
+  $('.flows').each(function(i, obj) {
+    data_ret['flows'].push({'id': obj.id.replace('flow', ''), 'orderkey': $('#' + obj.id).index()});
+    //console.log(obj.id + ' --- nil -- ' + $('#' + obj.id).index());
+  });
+
+
+  $.ajax({
+    type: "POST",
+    url: "/api/update",
+    dataType: "application/json",
+    proccessData: false, // this is true by default
+
+    data : data_ret,
+  })
+    .done(function( msg ) {
+      alert( "Data Saved: " + msg );
+    });
+
+
+}
+
+$.ajax({
+  type: "GET",
+  url: "/api/all",
+})
+  .success(function( msg ) {
+    data = jQuery.parseJSON(msg);
+    init_workflows();
+
+    $(function(){
+      $(function() {
+        $( ".sortable_job" ).sortable({
+          revert: true,
+          connectWith: ".sortable_job",
+          placeholder: "sortable_job_moving",
+
+          start: function(e, ui){
+            ui.placeholder.height(ui.helper[0].scrollHeight);
+            update_links('#DDDDDD');
+          },
+          change: function (e, ui){
+            update_links('#DDDDDD');
+          },
+          stop: function (e, ui){
+            update_workflows();
+          },
+        });
+        $( "ul, li" ).disableSelection();
+      });
+
+      $(function() {
+        $( ".sortable_sequence" ).sortable({
+          revert: true,
+          placeholder: "sortable_sequence_moving",
+
+          start: function(e, ui){
+            ui.placeholder.height(ui.helper[0].scrollHeight);
+            update_links('#DDDDDD');
+          },
+          change: function (e, ui){
+            update_links('#DDDDDD');
+          },
+          stop: function (e, ui){
+            update_workflows();
+          },
+        });
+        $( "ul, li" ).disableSelection();
+      });
+
+    });//]]>
+
+  });
+
+
 </script>
 
 </body>

@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20150926104304) do
 
   create_table "flows", force: :cascade do |t|
     t.string   "title"
-    t.integer  "order"
+    t.integer  "orderkey"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -23,14 +23,14 @@ ActiveRecord::Schema.define(version: 20150926104304) do
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
     t.integer  "sequence_id"
-    t.integer  "order"
+    t.integer  "orderkey"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "sequences", force: :cascade do |t|
     t.string   "title"
-    t.integer  "order"
+    t.integer  "orderkey"
     t.integer  "stage_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150926104304) do
 
   create_table "stages", force: :cascade do |t|
     t.string   "title"
-    t.integer  "order"
+    t.integer  "orderkey"
     t.integer  "flow_id"
     t.datetime "created_at"
     t.datetime "updated_at"
