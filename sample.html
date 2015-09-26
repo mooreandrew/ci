@@ -21,18 +21,72 @@
 <script type='text/javascript'>//<![CDATA[
 $(function(){
   $(function() {
-    $( ".sortable" ).sortable({
+    $( ".sortable_job" ).sortable({
       revert: true,
-      connectWith: ".sortable",
+      connectWith: ".sortable_job",
+      placeholder: "sortable_job_moving",
+
+
+
+
       start: function(e, ui){
         ui.placeholder.height(ui.helper[0].scrollHeight);
+        update_item('#DDDDDD');
+
       },
       change: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      stop: function (e, ui){
+        update_item();
+      },
+
+
+
+    });
+    $( "ul, li" ).disableSelection();
+  });
+
+  $(function() {
+    $( ".sortable_sequence" ).sortable({
+      revert: true,
+      placeholder: "sortable_sequence_moving",
+
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+        update_item('#DDDDDD');
+      },
+      change: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      stop: function (e, ui){
         update_item();
       },
     });
     $( "ul, li" ).disableSelection();
   });
+
+
+  $(function() {
+    $( ".sortable_flow" ).sortable({
+      revert: true,
+      placeholder: "sortable_flow_moving",
+
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+        $( ".line" ).remove();
+
+      },
+      change: function (e, ui){
+        $( ".line" ).remove();
+      },
+      stop: function (e, ui){
+        update_item();
+      },
+    });
+    $( "ul, li" ).disableSelection();
+  });
+
 });//]]>
 
 
@@ -69,7 +123,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     // make hr
 
-    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line'});
+    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line', style:'dotted'});
 
     //var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     //
@@ -82,27 +136,34 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 <style>
 
-.sortable {
-  background: #EEEEEE;
+.sortable_job {
   padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  overflow:auto;
+  border-radius: 5px;
+  overflow:visible;
 
 }
 
-.sortable > li {
+.sortable_job > li {
   list-style: none;
-  background: #DDDDDD;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  margin: 5px;
-  float: left;
-  width: 170px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+
+}
+
+.sortable_sequence {
+  padding: 10px;
+  border-radius: 5px;
+
+  overflow:visible;
+}
+
+.sortable_sequence > li {
+  list-style: none;
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+
 }
 
 .item {
@@ -115,10 +176,14 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 }
 
 .column {
-  width: 200px;
-  float: left;
-  margin-right: 60px;
+  display: inline-block;
 
+  width: 210px;
+  padding: 5px;
+  margin-right: 60px;
+  background: #EEEEEE;
+  border-radius: 5px;
+  vertical-align: top;
 }
 
 .column-max {
@@ -131,14 +196,87 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sortable_orphaned {
   background: #EEEEEE;
   padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  overflow:auto;
+  border-radius: 5px;
+
+  overflow:visible;
+  float: left;
+}
+
+.sortable_orphaned > li {
+  float: left;
+  width: 160px;
+  margin: 5px;
 }
 
 
+.sortable_job_moving {
+  background-color: #EAEAEA;
+  width: inherited;
+  border-radius: 5px;
+
+  width: 100%;
+  overflow: auto;
+  border: 1px dotted black;
+
+}
+
+
+.sortable_sequence_moving{
+  background-color: #EAEAEA;
+  width: inherited;
+  border-radius: 5px;
+
+  width: 100%;
+  overflow: auto;
+  border: 1px dotted black;
+
+
+}
+
+
+.flow {
+  background: #F4F4F4;
+  overflow:auto;
+  border-radius: 5px;
+
+  padding: 10px;
+  margin-top: 5px;
+  float: left;
+  width: 100%;
+}
+
+.sequence {
+  list-style: none;
+  background: #DDDDDD;
+  border-radius: 5px;
+
+  width: 100%;
+  white-space: nowrap;
+
+}
+
+.ui-sortable-helper {
+
+  margin-bottom:10px;
+}
+
+.flow {
+  overflow-x:auto;
+  white-space: nowrap;
+
+}
+
+.item {
+  width: 170px;
+  white-space: normal;
+  display:flex;
+
+}
+
+.navbar {
+  border-radius: 0px;
+
+}
 
 </style>
 
@@ -147,46 +285,71 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 <body>
 
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+
+    </div>
+  </nav>
+
+
+
+
 
 <div class="container">
-
-    <div class="column">
-      <center><h4>Step 1</h4></center>
-      <ul id="id1" class="list-unstyled sortable">
-        <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
-      </ul>
-      <center><h4>Step 1</h4></center>
-      <ul id="id2" class="list-unstyled sortable">
-        <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
-      </ul>
-      <center><h4>Step 1</h4></center>
-      <ul id="id3" class="list-unstyled sortable">
-        <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
-      </ul>
-    </div>
-    <div class="column">
-      <center><h4>Step 2</h4></center>
-      <ul id="id4" class="list-unstyled sortable">
-        <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
-        <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
-        <li class="ui-state-default"><div class="item">Push Changes</div></li>
-      </ul>
-    </div>
-    <div class="column">
-      <center><h4>Step 3</h4></center>
-      <ul id="id5" class="list-unstyled sortable">
-        <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
-      </ul>
-    </div>
-
+  <div class="page">
+    <ul class="list-unstyled sortable_flow">
+      <li class="ui-state-default flow" >
+          <ul class="list-unstyled sortable_sequence column">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1a</h4></center>
+              <ul id="id1" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
+              </ul>
+            </li>
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1b</h4></center>
+              <ul id="id2" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
+              </ul>
+            </li>
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id3" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="list-unstyled sortable_sequence column">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id4" class="list-unstyled sortable_job">
+                <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
+                <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
+                <li class="ui-state-default"><div class="item">Push Changes</div></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="list-unstyled sortable_sequence column">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id5" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
+              </ul>
+            </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
 </div>
+
+
 <div class="container">
-
-
-    <div class="column-max">
-      <h4>Available Tasks</h4>
-
-    <ul class="list-unstyled sortable sortable_orphaned">
+  <div class="column-max">
+    <h4>Available Tasks</h4>
+    <ul class="list-unstyled sortable_job sortable_orphaned">
       <li class="ui-state-default" ><div class="item">Item #1</div></li>
       <li class="ui-state-default" ><div class="item">Item #2</div></li>
       <li class="ui-state-default" ><div class="item">Item #3</div></li>
@@ -202,9 +365,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
       <li class="ui-state-default" ><div class="item">Item #13</div></li>
       <li class="ui-state-default" ><div class="item">Item #14</div></li>
     </ul>
-
   </div>
-
 </div>
 
 
@@ -220,6 +381,16 @@ function update_item(color) {
   connect(document.getElementById('id4'), document.getElementById('id5'), color, 3);
 }
 update_item();
+
+window.onresize = function() {
+  update_item();
+
+};
+
+$( ".flow" ).scroll(function() {
+  update_item();
+});
+
 
 </script>
 

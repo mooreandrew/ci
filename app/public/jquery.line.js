@@ -40,9 +40,6 @@
                   line.style.position = "absolute";
                   line.style.zIndex = options.zindex;
 
-                  console.log(line);
-
-
                   if(isIE){
                     line.style.top = (y2 > y1) ? y1 + "px" : y2 + "px";
                     line.style.left = x1 + "px";

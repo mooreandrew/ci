@@ -67,25 +67,7 @@ $(function(){
   });
 
 
-  $(function() {
-    $( ".sortable_flow" ).sortable({
-      revert: true,
-      placeholder: "sortable_flow_moving",
 
-      start: function(e, ui){
-        ui.placeholder.height(ui.helper[0].scrollHeight);
-        $( ".line" ).remove();
-
-      },
-      change: function (e, ui){
-        $( ".line" ).remove();
-      },
-      stop: function (e, ui){
-        update_item();
-      },
-    });
-    $( "ul, li" ).disableSelection();
-  });
 
 });//]]>
 
@@ -138,10 +120,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 .sortable_job {
   padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
   overflow:visible;
 
 }
@@ -149,29 +128,23 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sortable_job > li {
   list-style: none;
   margin-bottom: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
 
 }
 
 .sortable_sequence {
   padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   overflow:visible;
 }
 
 .sortable_sequence > li {
   list-style: none;
   margin-bottom: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
 
 }
 
@@ -191,10 +164,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   padding: 5px;
   margin-right: 60px;
   background: #EEEEEE;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
   vertical-align: top;
 }
 
@@ -208,10 +178,8 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sortable_orphaned {
   background: #EEEEEE;
   padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   overflow:visible;
   float: left;
 }
@@ -226,10 +194,8 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sortable_job_moving {
   background-color: #EAEAEA;
   width: inherited;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   width: 100%;
   overflow: auto;
   border: 1px dotted black;
@@ -240,10 +206,8 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sortable_sequence_moving{
   background-color: #EAEAEA;
   width: inherited;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   width: 100%;
   overflow: auto;
   border: 1px dotted black;
@@ -255,10 +219,8 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .flow {
   background: #F4F4F4;
   overflow:auto;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   padding: 10px;
   margin-top: 5px;
   float: left;
@@ -268,10 +230,8 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 .sequence {
   list-style: none;
   background: #DDDDDD;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
+
   width: 100%;
   white-space: nowrap;
 
@@ -292,6 +252,11 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   width: 170px;
   white-space: normal;
   display:flex;
+
+}
+
+.navbar {
+  border-radius: 0px;
 
 }
 
@@ -316,54 +281,9 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 
 <div class="container">
-  <div class="page">
-    <ul class="list-unstyled sortable_flow">
-      <li class="ui-state-default flow" >
-        <div class="column">
-          <ul class="list-unstyled sortable_sequence">
-            <li class="ui-state-default sequence" >
-              <center><h4>Step 1a</h4></center>
-              <ul id="id1" class="list-unstyled sortable_job">
-                <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
-              </ul>
-            </li>
-            <li class="ui-state-default sequence" >
-              <center><h4>Step 1b</h4></center>
-              <ul id="id2" class="list-unstyled sortable_job">
-                <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
-              </ul>
-            </li>
-            <li class="ui-state-default sequence" >
-              <center><h4>Step 1c</h4></center>
-              <ul id="id3" class="list-unstyled sortable_job">
-                <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul class="list-unstyled sortable_sequence">
-            <li class="ui-state-default sequence" >
-              <center><h4>Step 1c</h4></center>
-              <ul id="id4" class="list-unstyled sortable_job">
-                <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
-                <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
-                <li class="ui-state-default"><div class="item">Push Changes</div></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul class="list-unstyled sortable_sequence">
-            <li class="ui-state-default sequence" >
-              <center><h4>Step 1c</h4></center>
-              <ul id="id5" class="list-unstyled sortable_job">
-                <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </li>
+  <div class="page" id="page">
+    <ul class="list-unstyled sortable_flow " id="flows">
+
     </ul>
   </div>
 </div>
@@ -395,25 +315,83 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 
 
 <script>
+
+
 function update_item(color) {
   color = typeof color !== 'undefined' ? color : '#AAAAAA';
+
   $( ".line" ).remove();
-  connect(document.getElementById('id1'), document.getElementById('id4'), color, 3);
-  connect(document.getElementById('id2'), document.getElementById('id4'), color, 3);
-  connect(document.getElementById('id3'), document.getElementById('id4'), color, 3);
-  connect(document.getElementById('id4'), document.getElementById('id5'), color, 3);
+
+  for(var i in stages_link) {
+    for(var i2 in stages_link[i]) {
+      if(typeof stages_link[i][(parseInt(i2) + 1)] !== 'undefined') {
+        for(var i3 in stages_link[i][i2]) {
+          for(var i4 in stages_link[i][(parseInt(i2) + 1)]) {
+            connect(document.getElementById('sequence' + stages_link[i][i2][i3]), document.getElementById('sequence' + stages_link[i][(parseInt(i2) + 1)][i4]), color, 3);
+          }
+        }
+      }
+    }
+  }
 }
-update_item();
+
+
 
 window.onresize = function() {
   update_item();
 
 };
 
-$( ".flow" ).scroll(function() {
-  update_item();
-});
 
+data = {"flows":[{"id":1,"title":"Example #1","order":0,"created_at":"2015-09-26T10:51:43.518Z","updated_at":"2015-09-26T10:51:43.518Z"},{"id":2,"title":"Orphaned","order":1,"created_at":"2015-09-26T10:51:43.526Z","updated_at":"2015-09-26T10:51:43.526Z"}],"stages":[{"id":1,"title":"Example #1","order":0,"flow_id":1,"created_at":"2015-09-26T10:51:43.534Z","updated_at":"2015-09-26T10:51:43.534Z"},{"id":2,"title":"Example #1","order":1,"flow_id":1,"created_at":"2015-09-26T10:51:43.540Z","updated_at":"2015-09-26T10:51:43.540Z"},{"id":3,"title":"Example #1","order":2,"flow_id":1,"created_at":"2015-09-26T10:51:43.545Z","updated_at":"2015-09-26T10:51:43.545Z"}],"sequences":[{"id":1,"title":"Step 1a","order":0,"stage_id":1,"created_at":"2015-09-26T10:51:43.554Z","updated_at":"2015-09-26T10:51:43.554Z"},{"id":2,"title":"Step 1b","order":1,"stage_id":1,"created_at":"2015-09-26T10:51:43.560Z","updated_at":"2015-09-26T10:51:43.560Z"},{"id":3,"title":"Step 1c","order":2,"stage_id":1,"created_at":"2015-09-26T10:51:43.564Z","updated_at":"2015-09-26T10:51:43.564Z"},{"id":4,"title":"Step 2","order":0,"stage_id":2,"created_at":"2015-09-26T10:51:43.569Z","updated_at":"2015-09-26T10:51:43.569Z"},{"id":5,"title":"Step 3","order":0,"stage_id":3,"created_at":"2015-09-26T10:51:43.574Z","updated_at":"2015-09-26T10:51:43.574Z"}],"jobs":[{"id":1,"title":"Unit Test #1","sequence_id":1,"order":0,"created_at":"2015-09-26T10:51:43.586Z","updated_at":"2015-09-26T10:51:43.586Z"},{"id":2,"title":"Unit Test #2","sequence_id":2,"order":0,"created_at":"2015-09-26T10:51:43.592Z","updated_at":"2015-09-26T10:51:43.592Z"},{"id":3,"title":"Unit Test #3","sequence_id":3,"order":0,"created_at":"2015-09-26T10:51:43.596Z","updated_at":"2015-09-26T10:51:43.596Z"},{"id":4,"title":"Build Artifact","sequence_id":4,"order":0,"created_at":"2015-09-26T10:51:43.601Z","updated_at":"2015-09-26T10:51:43.601Z"},{"id":5,"title":"Deploy Artifact","sequence_id":4,"order":1,"created_at":"2015-09-26T10:51:43.606Z","updated_at":"2015-09-26T10:51:43.606Z"},{"id":6,"title":"Push Changes","sequence_id":4,"order":2,"created_at":"2015-09-26T10:51:43.610Z","updated_at":"2015-09-26T10:51:43.610Z"},{"id":7,"title":"Run Acceptance Tests","sequence_id":5,"order":0,"created_at":"2015-09-26T10:51:43.614Z","updated_at":"2015-09-26T10:51:43.614Z"},{"id":8,"title":"Orphaned Job #1","sequence_id":0,"order":0,"created_at":"2015-09-26T10:51:43.620Z","updated_at":"2015-09-26T10:51:43.620Z"},{"id":9,"title":"Orphaned Job #2","sequence_id":0,"order":1,"created_at":"2015-09-26T10:51:43.625Z","updated_at":"2015-09-26T10:51:43.625Z"},{"id":10,"title":"Orphaned Job #3","sequence_id":0,"order":2,"created_at":"2015-09-26T10:51:43.629Z","updated_at":"2015-09-26T10:51:43.629Z"},{"id":11,"title":"Orphaned Job #4","sequence_id":0,"order":3,"created_at":"2015-09-26T10:51:43.633Z","updated_at":"2015-09-26T10:51:43.633Z"},{"id":12,"title":"Orphaned Job #5","sequence_id":0,"order":4,"created_at":"2015-09-26T10:51:43.638Z","updated_at":"2015-09-26T10:51:43.638Z"},{"id":13,"title":"Orphaned Job #6","sequence_id":0,"order":5,"created_at":"2015-09-26T10:51:43.643Z","updated_at":"2015-09-26T10:51:43.643Z"},{"id":14,"title":"Orphaned Job #6","sequence_id":0,"order":6,"created_at":"2015-09-26T10:51:43.647Z","updated_at":"2015-09-26T10:51:43.647Z"},{"id":15,"title":"Orphaned Job #7","sequence_id":0,"order":7,"created_at":"2015-09-26T10:51:43.651Z","updated_at":"2015-09-26T10:51:43.651Z"},{"id":16,"title":"Orphaned Job #8","sequence_id":0,"order":8,"created_at":"2015-09-26T10:51:43.656Z","updated_at":"2015-09-26T10:51:43.656Z"}]};
+console.log(data);
+
+
+stages_link = {};
+
+function update_workflows() {
+
+  stages_link = {};
+
+  for(var flow in data.flows) {
+    if( $('#flow' + data.flows[flow].id).length ) {
+      console.log('check position using .index();');
+    } else {
+      $( "#flows" ).append( '<li class="flow" id="flow' + data.flows[flow].id + '"></li>' );
+      console.log('does not exists');
+    }
+
+    stages_link[data.flows[flow].id] = {};
+
+  }
+
+  stages = {};
+  for(var stage in data.stages) {
+    $( "#flow" + data.stages[stage].flow_id ).append( '<ul class="list-unstyled sortable_sequence column" id="stage' + data.stages[stage].id + '"></ul>' );
+    stages_link[data.stages[stage].flow_id][data.stages[stage].id] = [];
+    stages[data.stages[stage].id] = data.stages[stage].flow_id;
+  }
+
+  for(var sequence in data.sequences) {
+    $( "#stage" + data.sequences[sequence].stage_id ).append( '<li class="ui-state-default sequence"><center><h4>' + data.sequences[sequence].title + '</h4></center><ul id="sequence' + data.sequences[sequence].id + '" class="list-unstyled sortable_job"></ul></li>' );
+    stages_link[stages[data.sequences[sequence].stage_id]][data.sequences[sequence].stage_id].push(data.sequences[sequence].id);
+
+  }
+
+  for(var job in data.jobs) {
+    $( "#sequence" + data.jobs[job].sequence_id ).append( '<li class="ui-state-default" id="job' + data.jobs[job].id + '"><div class="item">' + data.jobs[job].title + '</div></li>' );
+  }
+
+  $( ".flow" ).scroll(function() {
+    update_item();
+  });
+}
+
+update_workflows();
+update_item();
+
+console.log();
+console.log('all ok');
 </script>
 
 </body>
