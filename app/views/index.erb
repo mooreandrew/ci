@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>jQuery UI: Draggable - jsFiddle demo</title>
+
+
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.js'></script>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+  <script type="text/javascript" src="jquery.line.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/overcast/jquery-ui.css">
+
+
+
+<script type='text/javascript'>//<![CDATA[
+$(function(){
+  $(function() {
+    $( ".sortable_job" ).sortable({
+      revert: true,
+      connectWith: ".sortable_job",
+      placeholder: "sortable_job_moving",
+
+
+
+
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+      },
+      change: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      update: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      stop: function (e, ui){
+        update_item();
+      },
+
+
+
+    });
+    $( "ul, li" ).disableSelection();
+  });
+
+  $(function() {
+    $( ".sortable_sequence" ).sortable({
+      revert: true,
+      placeholder: "sortable_sequence_moving",
+
+
+
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+      },
+      change: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      update: function (e, ui){
+        update_item('#DDDDDD');
+      },
+      stop: function (e, ui){
+        update_item();
+      },
+
+
+    });
+    $( "ul, li" ).disableSelection();
+  });
+
+
+});//]]>
+
+
+
+
+
+function getOffset( el ) {
+    var rect = el.getBoundingClientRect();
+    return {
+        left: rect.left + window.pageXOffset,
+        top: rect.top + window.pageYOffset,
+        width: rect.width || el.offsetWidth,
+        height: rect.height || el.offsetHeight
+    };
+}
+
+function connect(div1, div2, color, thickness) { // draw a line connecting elements
+    var off1 = getOffset(div1);
+    var off2 = getOffset(div2);
+    // bottom right
+    var x1 = off1.left + off1.width;
+    var y1 = off1.top + (off1.height / 2);
+
+    // top right
+    var x2 = off2.left;
+    var y2 = off2.top + (off2.height / 2);
+
+    // distance
+    var length = Math.sqrt(((x2-x1) * (x2-x1)) + ((y2-y1) * (y2-y1)));
+    // center
+    var cx = ((x1 + x2) / 2) - (length / 2);
+    var cy = ((y1 + y2) / 2) - (thickness / 2);
+    // angle
+    var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
+    // make hr
+
+    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line'});
+
+    //var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
+    //
+    // alert(htmlLine);
+    //document.body.innerHTML += htmlLine;
+}
+
+</script>
+
+
+<style>
+
+.sortable_job {
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  overflow:visible;
+
+}
+
+.sortable_job > li {
+  list-style: none;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+}
+
+.sortable_sequence {
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  overflow:visible;
+}
+
+.sortable_sequence > li {
+  list-style: none;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+}
+
+.item {
+  padding:20px;
+}
+
+.ui-sortable-helper:hover {
+  cursor:pointer;
+
+}
+
+.column {
+  width: 210px;
+  float: left;
+  padding: 5px;
+  margin-right: 60px;
+  background: #EEEEEE;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+
+}
+
+.column-max {
+  width: 100%;
+  float: left;
+  margin-right: 60px;
+
+}
+
+.sortable_orphaned {
+  background: #EEEEEE;
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  overflow:visible;
+  float: left;
+}
+
+.sortable_orphaned > li {
+  float: left;
+  width: 160px;
+  margin: 5px;
+}
+
+
+.sortable_job_moving {
+  background-color: #EAEAEA;
+  width: inherited;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  overflow: auto;
+  border: 1px dotted black;
+
+}
+
+
+.sortable_sequence_moving{
+  background-color: #EAEAEA;
+  width: inherited;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  overflow: auto;
+  border: 1px dotted black;
+
+
+}
+
+
+.flow {
+  background: #F4F4F4;
+  overflow:auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  float: left;
+}
+
+.sequence {
+  list-style: none;
+  background: #DDDDDD;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  float: left;
+  width: 100%;
+}
+
+.ui-sortable-helper {
+
+  margin-bottom:10px;
+}
+</style>
+
+</head>
+
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+
+    </div>
+  </nav>
+
+
+<div class="container">
+
+
+  <div class="flow">
+
+    <div class="column">
+
+      <ul class="list-unstyled sortable_sequence">
+        <li class="ui-state-default sequence" >
+          <center><h4>Step 1a</h4></center>
+          <ul id="id1" class="list-unstyled sortable_job">
+            <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
+          </ul>
+        </li>
+        <li class="ui-state-default sequence" >
+          <center><h4>Step 1b</h4></center>
+          <ul id="id2" class="list-unstyled sortable_job">
+            <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
+          </ul>
+        </li>
+        <li class="ui-state-default sequence" >
+          <center><h4>Step 1c</h4></center>
+          <ul id="id3" class="list-unstyled sortable_job">
+            <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
+          </ul>
+        </li>
+
+      </ul>
+
+
+    </div>
+    <div class="column">
+
+      <ul class="list-unstyled sortable_sequence">
+        <li class="ui-state-default sequence" >
+          <center><h4>Step 1c</h4></center>
+          <ul id="id4" class="list-unstyled sortable_job">
+            <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
+            <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
+            <li class="ui-state-default"><div class="item">Push Changes</div></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="column">
+      <ul class="list-unstyled sortable_sequence">
+        <li class="ui-state-default sequence" >
+          <center><h4>Step 1c</h4></center>
+          <ul id="id5" class="list-unstyled sortable_job">
+            <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+
+</div>
+<div class="container">
+
+
+    <div class="column-max">
+      <h4>Available Tasks</h4>
+
+    <ul class="list-unstyled sortable_job sortable_orphaned">
+      <li class="ui-state-default" ><div class="item">Item #1</div></li>
+      <li class="ui-state-default" ><div class="item">Item #2</div></li>
+      <li class="ui-state-default" ><div class="item">Item #3</div></li>
+      <li class="ui-state-default" ><div class="item">Item #4</div></li>
+      <li class="ui-state-default" ><div class="item">Item #5</div></li>
+      <li class="ui-state-default" ><div class="item">Item #6</div></li>
+      <li class="ui-state-default" ><div class="item">Item #7</div></li>
+      <li class="ui-state-default" ><div class="item">Item #8</div></li>
+      <li class="ui-state-default" ><div class="item">Item #9</div></li>
+      <li class="ui-state-default" ><div class="item">Item #10</div></li>
+      <li class="ui-state-default" ><div class="item">Item #11</div></li>
+      <li class="ui-state-default" ><div class="item">Item #12</div></li>
+      <li class="ui-state-default" ><div class="item">Item #13</div></li>
+      <li class="ui-state-default" ><div class="item">Item #14</div></li>
+    </ul>
+
+  </div>
+
+</div>
+
+
+
+
+<script>
+function update_item(color) {
+  color = typeof color !== 'undefined' ? color : '#AAAAAA';
+  $( ".line" ).remove();
+  connect(document.getElementById('id1'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id2'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id3'), document.getElementById('id4'), color, 3);
+  connect(document.getElementById('id4'), document.getElementById('id5'), color, 3);
+}
+update_item();
+
+</script>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ class CreateSequences < ActiveRecord::Migration
       t.string :title
       t.integer :order
       t.integer :stage
+      t.integer :flow_id
       t.timestamps
     end
   end

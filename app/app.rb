@@ -2,21 +2,29 @@ require_relative 'base'
 
 
 class Jobs < ActiveRecord::Base
-  after_save {id = self.id}
 end
 
 class Sequences < ActiveRecord::Base
-
-  id = nil
-  after_save {id = self.id}
 end
+
+class Flows < ActiveRecord::Base
+end
+
 
 class MyApp < SinatraRecord
 
+
   get "/" do
-    @notes = Jobs.order("created_at DESC")
-    puts @notes.as_json
-    return @notes.as_json.to_json
+
+    erb :index
+  end
+
+  get "/api/all" do
+    data = {}
+    data['flows'] = Flows.order("created_at DESC").as_json
+    data['sequences'] = Sequences.order("created_at DESC").as_json
+    data['jobs'] = Jobs.order("created_at DESC").as_json
+    return data.to_json
   end
 
   get "/add" do
@@ -32,18 +40,24 @@ class MyApp < SinatraRecord
 
     Jobs.delete_all
     Sequences.delete_all
+    Flows.delete_all
 
-    @sequence0 = Sequences.new(:title => 'Orphaned', :order => 0, :stage => 0)
+    @flow0 = Flows.new(:title => 'Example #1', :order => 0)
+    @flow0.save!
+    @flow1 = Flows.new(:title => 'Orphaned', :order => 0)
+    @flow1.save!
+
+    @sequence0 = Sequences.new(:title => 'Orphaned', :order => 0, :stage => 0, :flow_id => @flow0.id)
     @sequence0.save!
-    @sequence1 = Sequences.new(:title => 'Step 1a', :order => 0, :stage => 1)
+    @sequence1 = Sequences.new(:title => 'Step 1a', :order => 0, :stage => 1, :flow_id => @flow1.id)
     @sequence1.save!
-    @sequence2 = Sequences.new(:title => 'Step 1b', :order => 1, :stage => 1)
+    @sequence2 = Sequences.new(:title => 'Step 1b', :order => 1, :stage => 1, :flow_id => @flow1.id)
     @sequence2.save!
-    @sequence3 = Sequences.new(:title => 'Step 1c', :order => 2, :stage => 1)
+    @sequence3 = Sequences.new(:title => 'Step 1c', :order => 2, :stage => 1, :flow_id => @flow1.id)
     @sequence3.save!
-    @sequence4 = Sequences.new(:title => 'Step 2', :order => 0, :stage => 2)
+    @sequence4 = Sequences.new(:title => 'Step 2', :order => 0, :stage => 2, :flow_id => @flow1.id)
     @sequence4.save!
-    @sequence5 = Sequences.new(:title => 'Step 3', :order => 0, :stage => 3)
+    @sequence5 = Sequences.new(:title => 'Step 3', :order => 0, :stage => 3, :flow_id => @flow1.id)
     @sequence5.save!
 
     Jobs.new(:title => 'Unit Test #1', :sequence_id => @sequence1.id, :order => 0).save
@@ -67,9 +81,4 @@ class MyApp < SinatraRecord
     return 'Sample'
   end
 
-
-  get "/delete_all" do
-    Jobs.delete_all
-    return 'Deleted'
-  end
 end
