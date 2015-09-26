@@ -31,11 +31,10 @@ $(function(){
 
       start: function(e, ui){
         ui.placeholder.height(ui.helper[0].scrollHeight);
+        update_item('#DDDDDD');
+
       },
       change: function (e, ui){
-        update_item('#DDDDDD');
-      },
-      update: function (e, ui){
         update_item('#DDDDDD');
       },
       stop: function (e, ui){
@@ -53,26 +52,40 @@ $(function(){
       revert: true,
       placeholder: "sortable_sequence_moving",
 
-
-
       start: function(e, ui){
         ui.placeholder.height(ui.helper[0].scrollHeight);
-      },
-      change: function (e, ui){
         update_item('#DDDDDD');
       },
-      update: function (e, ui){
+      change: function (e, ui){
         update_item('#DDDDDD');
       },
       stop: function (e, ui){
         update_item();
       },
-
-
     });
     $( "ul, li" ).disableSelection();
   });
 
+
+  $(function() {
+    $( ".sortable_flow" ).sortable({
+      revert: true,
+      placeholder: "sortable_flow_moving",
+
+      start: function(e, ui){
+        ui.placeholder.height(ui.helper[0].scrollHeight);
+        $( ".line" ).remove();
+
+      },
+      change: function (e, ui){
+        $( ".line" ).remove();
+      },
+      stop: function (e, ui){
+        update_item();
+      },
+    });
+    $( "ul, li" ).disableSelection();
+  });
 
 });//]]>
 
@@ -110,7 +123,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     // make hr
 
-    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line'});
+    $('.container').line(x1, y1, x2, y2, {color:color, zindex:1, class:'line', style:'dotted'});
 
     //var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     //
@@ -172,8 +185,9 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
 }
 
 .column {
+  display: inline-block;
+
   width: 210px;
-  float: left;
   padding: 5px;
   margin-right: 60px;
   background: #EEEEEE;
@@ -181,8 +195,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-
-
+  vertical-align: top;
 }
 
 .column-max {
@@ -249,6 +262,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   padding: 10px;
   margin-top: 5px;
   float: left;
+  width: 100%;
 }
 
 .sequence {
@@ -258,14 +272,29 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   border-bottom-right-radius: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  float: left;
   width: 100%;
+  white-space: nowrap;
+
 }
 
 .ui-sortable-helper {
 
   margin-bottom:10px;
 }
+
+.flow {
+  overflow-x:auto;
+  white-space: nowrap;
+
+}
+
+.item {
+  width: 170px;
+  white-space: normal;
+  display:flex;
+
+}
+
 </style>
 
 </head>
@@ -283,71 +312,66 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
   </nav>
 
 
+
+
+
 <div class="container">
-
-
-  <div class="flow">
-
-    <div class="column">
-
-      <ul class="list-unstyled sortable_sequence">
-        <li class="ui-state-default sequence" >
-          <center><h4>Step 1a</h4></center>
-          <ul id="id1" class="list-unstyled sortable_job">
-            <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
+  <div class="page">
+    <ul class="list-unstyled sortable_flow">
+      <li class="ui-state-default flow" >
+        <div class="column">
+          <ul class="list-unstyled sortable_sequence">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1a</h4></center>
+              <ul id="id1" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #1</div></li>
+              </ul>
+            </li>
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1b</h4></center>
+              <ul id="id2" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
+              </ul>
+            </li>
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id3" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-        <li class="ui-state-default sequence" >
-          <center><h4>Step 1b</h4></center>
-          <ul id="id2" class="list-unstyled sortable_job">
-            <li class="ui-state-default"><div class="item">Unit Test #2</div></li>
+        </div>
+        <div class="column">
+          <ul class="list-unstyled sortable_sequence">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id4" class="list-unstyled sortable_job">
+                <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
+                <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
+                <li class="ui-state-default"><div class="item">Push Changes</div></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-        <li class="ui-state-default sequence" >
-          <center><h4>Step 1c</h4></center>
-          <ul id="id3" class="list-unstyled sortable_job">
-            <li class="ui-state-default"><div class="item">Unit Test #3</div></li>
+        </div>
+        <div class="column">
+          <ul class="list-unstyled sortable_sequence">
+            <li class="ui-state-default sequence" >
+              <center><h4>Step 1c</h4></center>
+              <ul id="id5" class="list-unstyled sortable_job">
+                <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-
-      </ul>
-
-
-    </div>
-    <div class="column">
-
-      <ul class="list-unstyled sortable_sequence">
-        <li class="ui-state-default sequence" >
-          <center><h4>Step 1c</h4></center>
-          <ul id="id4" class="list-unstyled sortable_job">
-            <li class="ui-state-default" ><div class="item">Build Artifact</div></li>
-            <li class="ui-state-default"><div class="item">Deploy Artifact</div></li>
-            <li class="ui-state-default"><div class="item">Push Changes</div></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="column">
-      <ul class="list-unstyled sortable_sequence">
-        <li class="ui-state-default sequence" >
-          <center><h4>Step 1c</h4></center>
-          <ul id="id5" class="list-unstyled sortable_job">
-            <li class="ui-state-default"><div class="item">Run Acceptance Tests</div></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-
+        </div>
+      </li>
+    </ul>
   </div>
-
 </div>
+
+
 <div class="container">
-
-
-    <div class="column-max">
-      <h4>Available Tasks</h4>
-
+  <div class="column-max">
+    <h4>Available Tasks</h4>
     <ul class="list-unstyled sortable_job sortable_orphaned">
       <li class="ui-state-default" ><div class="item">Item #1</div></li>
       <li class="ui-state-default" ><div class="item">Item #2</div></li>
@@ -364,9 +388,7 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
       <li class="ui-state-default" ><div class="item">Item #13</div></li>
       <li class="ui-state-default" ><div class="item">Item #14</div></li>
     </ul>
-
   </div>
-
 </div>
 
 
@@ -382,6 +404,15 @@ function update_item(color) {
   connect(document.getElementById('id4'), document.getElementById('id5'), color, 3);
 }
 update_item();
+
+window.onresize = function() {
+  update_item();
+
+};
+
+$( ".flow" ).scroll(function() {
+  update_item();
+});
 
 </script>
 
